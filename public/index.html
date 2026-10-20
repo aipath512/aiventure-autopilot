@@ -46,6 +46,15 @@ ol.log{font-size:.88rem;color:var(--mut);padding-left:20px;max-height:220px;over
 @keyframes p{50%{opacity:.25}}@media (prefers-reduced-motion:reduce){.dot.run{animation:none}.pg i{transition:none}}
 .foot{max-width:980px;margin:0 auto;padding:0 16px 30px;font-size:.85rem}#how ol{padding-left:20px}#how li{margin:.4em 0}code{overflow-wrap:anywhere}
 [hidden]{display:none!important}
+
+/* Feedback accesibil pentru butoane: apăsat, lucru, rezultat */
+button{transition:background-color .15s ease,color .15s ease,border-color .15s ease,transform .12s ease}
+button:active:not(:disabled){transform:scale(.97);filter:brightness(.88)}
+button.action-busy{background:#385b86!important;color:#fff!important;border-color:#7ca8e2!important;opacity:1;cursor:progress}
+button.action-ok{background:#137c54!important;color:#fff!important;border-color:#4bdda4!important;opacity:1}
+button.action-error{background:#9b2828!important;color:#fff!important;border-color:#ff8a80!important;opacity:1}
+@media(prefers-reduced-motion:reduce){button{transition:none}}
+
 </style>
 </head>
 <body>
