@@ -9,6 +9,20 @@ const api = async (path) => { const r = await fetch(path); const j = await r.jso
 const slug = (u) => (new URL(u).hostname + new URL(u).pathname).replace(/[^a-z0-9]+/gi, '_').replace(/^_|_$/g, '');
 function download(name, text, type = 'text/plain') { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([text], { type: type + ';charset=utf-8' })); a.download = name; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000); }
 
+/* ── ceas și progres ── */
+const tick = () => { const d = new Date(); $('clk').textContent = d.toLocaleTimeString('ro-RO', { hour12: false }); $('clkd').textContent = d.toLocaleDateString('ro-RO', { day: '2-digit', month: '2-digit', year: 'numeric' }); };
+tick(); setInterval(tick, 1000);
+const setBar = (v) => { $('pgi').style.width = v.toFixed(1) + '%'; $('pg').setAttribute('aria-valuenow', Math.round(v)); };
+function idle(txt) { $('pg').classList.add('idle'); $('dot').className = 'dot'; $('actTxt').textContent = txt || (S.cur && S.cur.prop ? 'Așteaptă validarea dumneavoastră' : 'Inactiv'); $('elapsed').textContent = ''; }
+async function task(label, from, to, fn) {
+  const pre = S.queue.length > 1 ? 'Pagina ' + (S.idx + 1) + '/' + S.queue.length + ' · ' : '';
+  const t0 = Date.now(); let v = from;
+  $('pg').classList.remove('idle'); $('dot').className = 'dot run'; $('actTxt').innerHTML = '<b>' + esc(pre + label) + '</b>'; setBar(v);
+  const tm = setInterval(() => { v += (to - v) * 0.07; setBar(v); $('elapsed').textContent = '· ' + Math.floor((Date.now() - t0) / 1000) + ' s'; }, 250);
+  try { return await fn(); }
+  finally { clearInterval(tm); setBar(to); if (to >= 100) setTimeout(() => idle(), 700); }
+}
+
 /* ── încărcare ── */
 async function loadSitemap(origin) {
   try {
@@ -34,20 +48,20 @@ async function probeNeeded(page) {
 }
 const ctx = () => ({ sitemapUrls: S.sitemap, probe: S.probe, assume: S.assume });
 async function fetchPage(url) { const j = await api('/api/fetch?url=' + encodeURIComponent(url)); return { html: j.text, url: j.finalUrl }; }
-async function reaudit() { const c = S.cur; c.page = parsePage(c.html, c.url); await probeNeeded(c.page); c.audit = audit(c.page, ctx()); render(); }
+async function reaudit() { const c = S.cur; c.page = parsePage(c.html, c.url); await task('Recalculez scorul', 10, 100, () => probeNeeded(c.page)); c.audit = audit(c.page, ctx()); render(); }
 
 /* ── pagină ── */
 async function openPage(url) {
   say('Încarc ' + url + ' …');
-  let got; try { got = await fetchPage(url); } catch (e) { say('Nu pot încărca pagina: ' + e.message, 'err'); log('Eroare la ' + url + ': ' + e.message); return markFail(url, e.message); }
+  let got; try { got = await task('Descarc pagina', 5, 40, () => fetchPage(url)); } catch (e) { say('Nu pot încărca pagina: ' + e.message, 'err'); log('Eroare la ' + url + ': ' + e.message); return markFail(url, e.message); }
   const page0 = parsePage(got.html, got.url);
   S.cur = { url: got.url, orig: got.html, html: got.html, page: page0, audit: null, done: new Set(), rejected: new Set(), inputs: {}, iter: 0, startScore: null, liveScore: null, prop: null };
-  await probeNeeded(page0); S.cur.audit = audit(page0, ctx());
+  await task('Verific iconurile și imaginile', 40, 90, () => probeNeeded(page0)); S.cur.audit = audit(page0, ctx());
   S.cur.startScore = S.cur.liveScore = S.cur.audit.score;
   const body = got.html.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>|<[^>]+>/g, ' ').replace(/\s+/g, ' ');
   if (body.length < 400) log('Atenție: pagina are puțin text în HTML-ul brut; dacă e generată de JavaScript, auditul vede doar ce vede un crawler fără JS.');
   say(''); $('work').hidden = false; log('Pagină încărcată: ' + got.url + ' · scor ' + S.cur.audit.score);
-  step();
+  setBar(100); step(); idle();
 }
 function markFail(url, why) { S.results.push({ url, start: null, est: null, live: null, state: 'eroare: ' + why }); saveProgress(); renderResults(); if (S.idx + 1 < S.queue.length) { S.idx++; return openPage(S.queue[S.idx]); } }
 
@@ -111,13 +125,13 @@ async function applyAndNext(kind) {
 $('approve').onclick = () => applyAndNext('approve');
 $('reject').onclick = () => applyAndNext('reject');
 $('skip').onclick = () => applyAndNext('skip');
-$('probeBtn').onclick = async () => { const c = S.cur; c.prop.files.forEach((f) => delete S.probe[f]); try { Object.assign(S.probe, await api('/api/probe?urls=' + encodeURIComponent(c.prop.files.join('|')))); } catch (e) { log('Verificare fișiere: ' + e.message); } await reaudit(); c.prop = propose(c.group, c.page, c.audit, c.inputs); render(); };
+$('probeBtn').onclick = async () => { const c = S.cur; c.prop.files.forEach((f) => delete S.probe[f]); try { await task('Verific fișierele', 5, 100, async () => Object.assign(S.probe, await api('/api/probe?urls=' + encodeURIComponent(c.prop.files.join('|'))))); } catch (e) { log('Verificare fișiere: ' + e.message); } await reaudit(); c.prop = propose(c.group, c.page, c.audit, c.inputs); render(); };
 $('assumeBtn').onclick = async () => { S.cur.prop.files.forEach((f) => S.assume.add(f)); await reaudit(); log('Fișiere socotite ca încărcate (estimat).'); S.cur.prop = propose(S.cur.group, S.cur.page, S.cur.audit, S.cur.inputs); render(); };
 $('dlHtml').onclick = () => download(slug(S.cur.url) + '_v' + VERSION + '_' + today + '.html', S.cur.html, 'text/html');
 $('dlHead').onclick = () => { const h = S.cur.html; const i = h.search(/<\/head>/i); download(slug(S.cur.url) + '_head_v' + VERSION + '_' + today + '.html', h.slice(0, i >= 0 ? i + 7 : 0), 'text/html'); };
 $('live').onclick = async () => {
   const c = S.cur; say('Verific pagina publicată …');
-  try { const g = await fetchPage(c.url); const pg = parsePage(g.html, g.url); S.probe = {}; await probeNeeded(pg); const au = audit(pg, { sitemapUrls: S.sitemap, probe: S.probe, assume: new Set() }); c.liveScore = au.score; log('Verificat live: ' + au.score); say('Scor verificat pe pagina publicată: ' + au.score, au.score >= S.target ? 'ok' : ''); }
+  try { const g = await task('Descarc pagina publicată', 5, 55, () => fetchPage(c.url)); const pg = parsePage(g.html, g.url); S.probe = {}; await task('Verific iconurile și imaginile', 55, 100, () => probeNeeded(pg)); const au = audit(pg, { sitemapUrls: S.sitemap, probe: S.probe, assume: new Set() }); c.liveScore = au.score; log('Verificat live: ' + au.score); say('Scor verificat pe pagina publicată: ' + au.score, au.score >= S.target ? 'ok' : ''); }
   catch (e) { say('Nu pot verifica: ' + e.message, 'err'); }
   render();
 };
@@ -135,7 +149,7 @@ $('go').onclick = async () => {
   let origin; try { origin = new URL(u).origin; } catch { return say('URL invalid.', 'err'); }
   S.target = Math.max(50, Math.min(100, Number($('target').value) || 100)); S.results = []; S.probe = {}; S.assume = new Set(); $('log').innerHTML = '';
   $('go').disabled = true; say('Caut sitemap-ul …');
-  const locs = await loadSitemap(origin); S.sitemap = locs ? new Set(locs.map((l) => l)) : null;
+  S.queue = []; S.idx = 0; const locs = await task('Caut sitemap-ul', 3, 100, () => loadSitemap(origin)); S.sitemap = locs ? new Set(locs.map((l) => l)) : null;
   S.queue = $('scope').value === 'sitemap' && locs && locs.length ? locs.slice(0, 40) : [normalizeCanonical(u)];
   if ($('scope').value === 'sitemap' && !locs) log('Fără sitemap: auditez doar pagina introdusă.');
   S.idx = 0; $('go').disabled = false; await openPage(S.queue[0]);

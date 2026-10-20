@@ -33,10 +33,29 @@ pre{background:var(--code);border:1px solid var(--line);border-radius:8px;paddin
 .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
 table{width:100%;border-collapse:collapse;font-size:.9rem}td,th{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
 ol.log{font-size:.88rem;color:var(--mut);padding-left:20px;max-height:220px;overflow:auto}
+
+.top{position:sticky;top:0;z-index:20;background:var(--card);border-bottom:1px solid var(--line)}
+.top .in{max-width:980px;margin:0 auto;padding:8px 16px;display:flex;gap:12px;align-items:center;justify-content:space-between}
+.top .act{min-width:0;flex:1 1 auto;font-size:.88rem;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top .act b{color:var(--ink);font-weight:600}
+.top .clk{flex:0 0 auto;text-align:right;font:600 .95rem/1.2 ui-monospace,Consolas,monospace;font-variant-numeric:tabular-nums}
+.top .clk small{display:block;font-weight:400;font-size:.72rem;color:var(--mut)}
+.pg{height:5px;background:var(--line)}.pg i{display:block;height:100%;width:0;background:var(--acc);transition:width .25s}
+.pg.idle i{width:0!important}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--mut);margin-right:6px}.dot.run{background:var(--acc);animation:p 1s infinite}
+@keyframes p{50%{opacity:.25}}@media (prefers-reduced-motion:reduce){.dot.run{animation:none}.pg i{transition:none}}
+.foot{max-width:980px;margin:0 auto;padding:0 16px 30px;font-size:.85rem}#how ol{padding-left:20px}#how li{margin:.4em 0}code{overflow-wrap:anywhere}
 [hidden]{display:none!important}
 </style>
 </head>
 <body>
+<header class="top">
+  <div class="in">
+    <div class="act" id="act" aria-live="polite"><span class="dot" id="dot"></span><span id="actTxt">Inactiv</span> <span id="elapsed"></span></div>
+    <div class="clk" aria-label="Ora curentă"><span id="clk">--:--:--</span><small id="clkd"></small></div>
+  </div>
+  <div class="pg idle" id="pg" role="progressbar" aria-label="Progres operațiune" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="pgi"></i></div>
+</header>
 <main>
 <h1>Pilot automat: schema.org și meta tags</h1>
 <p class="sub">Introduceți un URL. Sistemul măsoară pagina, propune o corecție pe iterație, o aplică doar după aprobarea dumneavoastră și repetă până la scorul țintă. Nu scrie nimic pe site-ul dumneavoastră: la sfârșit primiți fișierul HTML corectat.</p>
@@ -90,11 +109,24 @@ ol.log{font-size:.88rem;color:var(--mut);padding-left:20px;max-height:220px;over
     </div>
   </div>
 
-  <div class="card"><h2>Rezultate pe pagini</h2><table><thead><tr><th>Pagina</th><th>Început</th><th>Estimat</th><th>Verificat</th><th>Stare</th></tr></thead><tbody id="results"></tbody></table>
+  <div class="card"><h2>Rezultate pe pagini</h2><div style="overflow-x:auto"><table><thead><tr><th>Pagina</th><th>Început</th><th>Estimat</th><th>Verificat</th><th>Stare</th></tr></thead><tbody id="results"></tbody></table></div>
     <div class="actions"><button id="dlReport">Descarcă raportul</button></div></div>
   <div class="card"><h2>Jurnal</h2><ol class="log" id="log"></ol></div>
 </section>
+<section class="card" id="how">
+  <h2>Cum funcționează</h2>
+  <ol>
+    <li><b>Introduceți adresa.</b> O pagină sau un site întreg (până la 40 de pagini din sitemap) și scorul țintă, implicit 100.</li>
+    <li><b>Măsurare.</b> Sistemul descarcă pagina așa cum o vede un crawler, fără JavaScript, și aplică 38 de verificări: 28 pentru meta tags și 10 pentru schema.org. Verifică și dacă imaginile și iconurile indicate există și au dimensiunea corectă.</li>
+    <li><b>O corecție pe iterație.</b> Pentru primul grup care nu trece (titlu, Open Graph, Twitter Card, iconuri, schema) vedeți de ce pică, codul propus și, la nevoie, câmpurile pe care trebuie să le completați dumneavoastră. Nu inventez licențe, logo-uri sau date de contact.</li>
+    <li><b>Validarea dumneavoastră.</b> „Aprob și aplic” modifică doar copia din memorie. „Respinge” sau „Rezolv manual” sare peste grupul respectiv. Nimic nu se schimbă fără apăsarea dumneavoastră.</li>
+    <li><b>Re-măsurare.</b> După fiecare aprobare scorul se recalculează. Scorul <i>estimat</i> arată pagina după aprobările dumneavoastră. Scorul <i>verificat</i> apare doar după ce apăsați „Verifică pagina publicată” și vine din pagina reală.</li>
+    <li><b>Livrare.</b> La final descărcați HTML-ul corectat sau doar blocul <code>&lt;head&gt;</code>, îl încărcați pe site, verificați live și treceți la pagina următoare. Raportul și jurnalul se descarcă în format Markdown.</li>
+  </ol>
+  <p class="sub">Bara de sus arată operațiunea în curs, timpul scurs și ora curentă. Sistemul funcționează pe reguli, fără AI. Nu scrie nimic pe site-ul dumneavoastră. Pagina trece prin serverul acestui instrument doar pentru citire. Progresul rezultatelor se păstrează local în browser.</p>
+</section>
 </main>
+<footer class="foot"><p class="sub">Pilot automat schema.org și meta tags · AiVenture</p></footer>
 <script type="module" src="/app.js"></script>
 </body>
 </html>
