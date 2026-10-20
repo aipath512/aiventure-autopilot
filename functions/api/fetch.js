@@ -1,5 +1,6 @@
 import { limitedFetch } from '../_lib/net.js';
-const json = (o, s = 200) => new Response(JSON.stringify(o), { status: s, headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' } });
+// \u003c / \u003e în loc de < / >: JSON rămâne valid, dar HTML-ul nu mai este „curățat” de proxy-uri sau unelte intermediare.
+const json = (o, s = 200) => new Response(JSON.stringify(o).replace(/</g, '\\u003c').replace(/>/g, '\\u003e'), { status: s, headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' } });
 export async function onRequestGet({ request }) {
   const q = new URL(request.url).searchParams; const url = q.get('url'); const kind = q.get('kind') || 'html';
   if (!url) return json({ error: 'Lipsește url' }, 400);
