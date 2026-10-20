@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pilot automat: schema.org și meta tags</title>
+<meta name="description" content="Introduceți un URL; sistemul auditează schema.org și meta tags, propune corecții pas cu pas și le aplică doar după validarea dumneavoastră, până la scorul țintă.">
+<meta name="robots" content="noindex,nofollow">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#0b1220">
+<link rel="icon" href="data:,">
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#14181f;--mut:#5b6573;--line:#dfe3e8;--acc:#0a6b5c;--accink:#fff;--bad:#b3261e;--ok:#12724a;--warn:#8a5a00;--code:#f0f2f5}
+@media (prefers-color-scheme:dark){:root{--bg:#0b1220;--card:#121a2b;--ink:#e8edf5;--mut:#9aa6b8;--line:#243049;--acc:#2fc4a8;--accink:#06201b;--bad:#ff8a80;--ok:#5ee0a8;--warn:#f2c46b;--code:#0d1526}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,Segoe UI,Roboto,sans-serif}
+main{max-width:980px;margin:0 auto;padding:20px 16px 60px}
+h1{font-size:1.5rem;margin:.2em 0}h2{font-size:1.1rem;margin:0 0 .5em}p{margin:.4em 0}
+.sub{color:var(--mut)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin:14px 0}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:end}
+label{display:block;font-size:.85rem;color:var(--mut);margin-bottom:3px}
+input[type=text],input[type=url],input[type=number],select,textarea{width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:inherit}
+.grow{flex:1 1 280px}.small{flex:0 0 150px}
+button{padding:10px 16px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;cursor:pointer}
+button.primary{background:var(--acc);color:var(--accink);border-color:var(--acc);font-weight:600}
+button:disabled{opacity:.5;cursor:not-allowed}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.scores{display:flex;gap:14px;flex-wrap:wrap}.score{flex:1 1 200px;border:1px solid var(--line);border-radius:10px;padding:12px}
+.score b{font-size:2rem;display:block;line-height:1.1}.bar{height:8px;background:var(--line);border-radius:6px;overflow:hidden;margin-top:8px}.bar i{display:block;height:100%;background:var(--acc)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.chip{font-size:.8rem;padding:3px 9px;border-radius:99px;border:1px solid var(--line)}
+.chip.ok{color:var(--ok);border-color:var(--ok)}.chip.bad{color:var(--bad);border-color:var(--bad)}.chip.skip{color:var(--warn);border-color:var(--warn)}
+pre{background:var(--code);border:1px solid var(--line);border-radius:8px;padding:10px;overflow:auto;font:12.5px/1.45 ui-monospace,Consolas,monospace;max-height:340px;white-space:pre-wrap;word-break:break-word}
+.note{color:var(--warn);font-size:.92rem}.err{color:var(--bad)}.ok{color:var(--ok)}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+table{width:100%;border-collapse:collapse;font-size:.9rem}td,th{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+ol.log{font-size:.88rem;color:var(--mut);padding-left:20px;max-height:220px;overflow:auto}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<main>
+<h1>Pilot automat: schema.org și meta tags</h1>
+<p class="sub">Introduceți un URL. Sistemul măsoară pagina, propune o corecție pe iterație, o aplică doar după aprobarea dumneavoastră și repetă până la scorul țintă. Nu scrie nimic pe site-ul dumneavoastră: la sfârșit primiți fișierul HTML corectat.</p>
+
+<section class="card" id="start">
+  <div class="row">
+    <div class="grow"><label for="url">Adresa paginii (sau a site-ului)</label><input id="url" type="url" placeholder="https://firmsfinder.eu/" autocomplete="url"></div>
+    <div class="small"><label for="scope">Domeniu</label><select id="scope"><option value="one">Doar această pagină</option><option value="sitemap">Toate din sitemap (max 40)</option></select></div>
+    <div class="small"><label for="target">Scor țintă</label><input id="target" type="number" min="50" max="100" value="100"></div>
+    <button class="primary" id="go">Pornește</button>
+  </div>
+  <p id="status" class="sub" role="status"></p>
+</section>
+
+<section id="work" hidden>
+  <div class="card">
+    <h2 id="pageTitle">Pagina</h2>
+    <div class="scores">
+      <div class="score"><span class="sub">Scor estimat (după aprobările dumneavoastră)</span><b id="sEst">–</b><div class="bar"><i id="bEst" style="width:0"></i></div></div>
+      <div class="score"><span class="sub">Scor verificat (pagina publicată)</span><b id="sLive">–</b><div class="bar"><i id="bLive" style="width:0"></i></div></div>
+    </div>
+    <div class="chips" id="chips"></div>
+  </div>
+
+  <div class="card" id="iter" hidden>
+    <h2 id="iterTitle"></h2>
+    <p id="iterWhy" class="sub"></p>
+    <div id="needs"></div>
+    <label>Modificări propuse în <code>&lt;head&gt;</code></label>
+    <pre id="snippet"></pre>
+    <div id="notes"></div>
+    <div id="files" hidden>
+      <p><b>Fișiere de încărcat pe site:</b></p><ul id="fileList"></ul>
+      <div class="actions"><button id="probeBtn">Verifică acum dacă există</button><button id="assumeBtn">Le-am încărcat (socotește-le)</button></div>
+    </div>
+    <div class="actions">
+      <button class="primary" id="approve">Aprob și aplic</button>
+      <button id="reject">Respinge</button>
+      <button id="skip">Rezolv manual, treci mai departe</button>
+    </div>
+  </div>
+
+  <div class="card" id="done" hidden>
+    <h2 id="doneTitle"></h2>
+    <div id="remain"></div>
+    <div class="actions">
+      <button class="primary" id="dlHtml">Descarcă HTML-ul corectat</button>
+      <button id="dlHead">Descarcă doar &lt;head&gt;</button>
+      <button id="live">Verifică pagina publicată acum</button>
+      <button class="primary" id="nextPage">Pagina următoare</button>
+    </div>
+  </div>
+
+  <div class="card"><h2>Rezultate pe pagini</h2><table><thead><tr><th>Pagina</th><th>Început</th><th>Estimat</th><th>Verificat</th><th>Stare</th></tr></thead><tbody id="results"></tbody></table>
+    <div class="actions"><button id="dlReport">Descarcă raportul</button></div></div>
+  <div class="card"><h2>Jurnal</h2><ol class="log" id="log"></ol></div>
+</section>
+</main>
+<script type="module" src="/app.js"></script>
+</body>
+</html>
