@@ -10,3 +10,5 @@ Pagină web pe care introduceți un URL; sistemul măsoară schema.org și meta 
 Cloudflare Pages: Build command gol, Build output directory = `public`. Folderul `functions/` se detectează singur.
 
 Limite: nu scrie pe site-ul auditat (primiți fișierul corectat); fără AI, textele noi sunt deduse din pagină și se pot edita înainte de aprobare; paginile generate doar de JavaScript sunt văzute ca de un crawler fără JavaScript.
+
+Cloudflare Pages: Build output directory = public (setat 2026-10-20).
