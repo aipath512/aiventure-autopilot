@@ -161,3 +161,53 @@ $('go').onclick = async () => {
   if ($('scope').value === 'sitemap' && !locs) log('Fără sitemap: auditez doar pagina introdusă.');
   S.idx = 0; $('go').disabled = false; await openPage(S.queue[0]);
 };
+
+
+/* ── feedback vizual pentru acțiuni ── */
+const actionLabels = {
+  go: 'Pornesc auditul', probeBtn: 'Verific fișierele', assumeBtn: 'Actualizez estimarea',
+  approve: 'Aplic modificările', reject: 'Înregistrez respingerea', skip: 'Trec mai departe',
+  dlHtml: 'Pregătesc HTML-ul', dlHead: 'Pregătesc head-ul',
+  live: 'Verific pagina publicată', nextPage: 'Finalizez pagina', dlReport: 'Pregătesc raportul'
+};
+const downloads = new Set(['dlHtml', 'dlHead', 'dlReport']);
+for (const [id, label] of Object.entries(actionLabels)) {
+  const button = $(id);
+  if (!button || typeof button.onclick !== 'function') continue;
+  const original = button.onclick;
+  const normal = button.textContent;
+  button.onclick = async function(event) {
+    if (button.disabled || button.dataset.busy === 'true') return;
+    button.dataset.busy = 'true';
+    button.disabled = true;
+    button.classList.remove('action-ok', 'action-error');
+    button.classList.add('action-busy');
+    button.textContent = '◌ ' + label + '…';
+    button.setAttribute('aria-busy', 'true');
+    try {
+      await original.call(this, event);
+      button.classList.remove('action-busy');
+      button.classList.add('action-ok');
+      button.textContent = downloads.has(id) ? '✓ Descărcare inițiată' : '✓ Acțiune executată';
+      if (downloads.has(id)) say('Descărcarea a fost inițiată. Verificați fișierele descărcate.', 'ok');
+    } catch (error) {
+      button.classList.remove('action-busy');
+      button.classList.add('action-error');
+      button.textContent = '✕ Eroare — reîncercați';
+      say('Acțiunea a eșuat: ' + (error?.message || String(error)), 'err');
+      log('Eroare ' + id + ': ' + (error?.message || String(error)));
+    } finally {
+      button.removeAttribute('aria-busy');
+      button.dataset.busy = 'false';
+      window.setTimeout(() => {
+        button.classList.remove('action-ok', 'action-error', 'action-busy');
+        if (button.isConnected) {
+          if (id !== 'approve' && id !== 'nextPage') button.textContent = normal;
+          else if (id === 'approve' && S.cur?.prop) button.textContent = S.cur.prop.empty ? 'Am luat act (nu există modificare de HTML)' : 'Aprob și aplic';
+          else if (id === 'nextPage') button.textContent = S.idx + 1 < S.queue.length ? 'Pagina următoare' : 'Încheie';
+        }
+        button.disabled = false;
+      }, 1800);
+    }
+  };
+}
