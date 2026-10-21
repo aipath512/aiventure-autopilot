@@ -37,7 +37,10 @@ def wrap(text, f, w):
 y = 250
 for ln in wrap(sub, font('InterDisplay-Bold.otf', 50), 640):
     d.text((60, y), ln, font=font('InterDisplay-Bold.otf', 50), fill=white); y += 64
-d.rectangle([0, 548, W, H], fill=(14, 28, 46)); d.rectangle([0, 548, 330, H], fill=gold)
-d.text((28, 570), domain, font=font('Inter-Bold.otf', 34), fill=(1, 14, 25))
-d.text((360, 574), 'AiVenture S.R.L.  ·  Web  ·  AI  ·  A2A', font=font('Inter-Regular.otf', 26), fill=mut)
+fs = 34
+while d.textlength(domain, font=font('Inter-Bold.otf', fs)) > 310 - 28 and fs > 18: fs -= 1
+bw = max(330, int(d.textlength(domain, font=font('Inter-Bold.otf', fs))) + 56)
+d.rectangle([0, 548, W, H], fill=(14, 28, 46)); d.rectangle([0, 548, bw, H], fill=gold)
+d.text((28, 548 + (82 - fs) // 2 - 4), domain, font=font('Inter-Bold.otf', fs), fill=(1, 14, 25))
+d.text((bw + 30, 574), 'AiVenture S.R.L.  ·  Web  ·  AI  ·  A2A', font=font('Inter-Regular.otf', 26), fill=mut)
 img.save(out, 'JPEG', quality=88, optimize=True)

@@ -1,0 +1,11 @@
+{
+  "domain": "aireadyinjector.com", "lang": "en", "locale": "en_US", "date": "2026-10-21",
+  "brand": "AI-READY INJECTOR", "short": "AI-READY INJECTOR", "slogan": "Signals make you readable.",
+  "og_alt": "AI-READY INJECTOR — machine-readable signals published at the Cloudflare Edge, no website rebuild",
+  "og_name": "AI-READY INJECTOR", "og_tag": "Edge-delivered · No rebuild",
+  "og_sub": "Signals make you readable.",
+  "app": {
+    "description": "Publishes the missing machine-readable signals for a business website at the Cloudflare Edge, without rebuilding the site or accessing its CMS.",
+    "features": ["Audit of what AI systems actually see on the site", "Missing machine-readable signals published at the Edge", "No website rebuild and no CMS access required"]
+  }
+}
