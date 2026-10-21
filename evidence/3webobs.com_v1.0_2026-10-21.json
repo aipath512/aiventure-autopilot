@@ -1,0 +1,26 @@
+{
+  "site": "3webobs.com",
+  "repo": "aipath512/3webobs",
+  "increment": 3,
+  "before": {
+    "score": 78.9,
+    "failing": {"icon": 5, "schema": 3},
+    "failing_checks": ["icon_ico", "icon_svg", "icon_32", "icon_16", "icon_apple", "ld:wp", "ld:slash", "ld:lang"],
+    "index_html_sha256": "697c618be243c0df7fd85fccd38a22c1249b3bd07e8b4ca366e6cddaaad078c4",
+    "site_webmanifest_sha256": "1f26a8613ff0c0343588f81ad195c6c0bde7fd9847453a70a2646547beb6a7bc"
+  },
+  "after": {
+    "commit": "PR #1 3webobs, merged 2026-10-21",
+    "score_live": 100,
+    "failing": {},
+    "index_html_sha256": "c591eb09d4f5ffdab7f8c8b9aad2a40b74f631f69c88f569349709f397328beb",
+    "site_webmanifest_sha256": "9475371226547619180385e3e4e6d7fa2c6b2101c76ec5e42a90c693fe4f2e7c",
+    "favicon_ico_sha256": "18b787a2d255243a02a513b23e4570b76868e806df206e38c94be80105fcc173"
+  },
+  "changes": [
+    "set de iconuri proprii 3W (generat) + etichete in head + manifest cu iconuri reale",
+    "scos din JSON-LD-ul homepage-ului: AboutPage, ContactPage, ProfilePage ale paginii /contact (raman in contact.html)",
+    "regula ld:slash din scorer urmeaza acum stilul URL-urilor interne (3webobs foloseste URL-uri fara slash final, iar /pricing/ face redirect 308)"
+  ],
+  "opentimestamps": "neinregistrat (calendarele OTS nu sunt accesibile din mediul de lucru)"
+}
