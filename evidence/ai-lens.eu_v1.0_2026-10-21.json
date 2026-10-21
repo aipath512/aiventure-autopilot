@@ -1,0 +1,21 @@
+{
+  "site": "ai-lens.eu",
+  "repo": "aipath512/ai-lens",
+  "increment": 1,
+  "measured_with": "aiventure-autopilot /api/audit (38 verificari: 28 meta + 10 schema.org)",
+  "before": {
+    "commit": "8189ab5",
+    "score": 21.1,
+    "failing_groups": {"titlu": 1, "baza": 2, "og": 7, "ogimg": 4, "tw": 4, "icon": 6, "theme": 1, "schema": 5},
+    "index_html_sha256": "817704d27efcaef8dcf0f028c30d77317cec524e82e55e4d1cc13d05ca741736"
+  },
+  "after": {
+    "commit": "19f0798 (PR #1 + PR #2, merged 2026-10-21)",
+    "score_live": 100,
+    "failing_groups": {},
+    "index_html_sha256": "19f0798cb7234ff5d4b3cc82712163f2506bfbd8758f9c16e1cf8cbf5cf49a5f",
+    "og_image_sha256": "e5f1f7e920e1033dbbab16f93f5a87cf31711729f23d269847cc169234ed4e90"
+  },
+  "opentimestamps": "neinregistrat: calendarele OTS nu sunt accesibile din mediul de lucru; SHA-256 de mai sus se ștampilează din pilot (pas separat)",
+  "note": "Verificarea canonical-in-sitemap este omisa (ai-lens.eu nu are sitemap.xml)."
+}
