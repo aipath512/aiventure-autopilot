@@ -1,0 +1,12 @@
+{
+  "site": "b2b-ai-library.org",
+  "increment": 4,
+  "versiune": "v1.0",
+  "data": "2026-10-21",
+  "masurat_cu": "https://aiventure-autopilot.pages.dev/api/audit (scorer.js, 38 verificări: 28 meta + 10 schema)",
+  "BEFORE": {"scor": 28.9, "esecuri": ["desc 221 caractere","canonical","robots","og:* (7)","og:image* (4)","twitter:* (4)","iconuri (6)","theme-color","ld:wp","ld:lang"], "index_sha256": "f16b4ceae13523be97df40f6bcbc3c3c1e8b2e41f6130ff236af2c1aac798237"},
+  "INTERMEDIAR": {"scor": 94.7, "esecuri": ["ld:lang","ld:dup"], "cauza": "workerul autumn-firefly-728d injecta un al doilea graf JSON-LD"},
+  "AFTER": {"scor": 100, "esecuri": [], "index_sha256": "98e0615dc24ccd7cb65ae7b7db5d2065d50f1db777900b89ef12412fe5678efa"},
+  "interventie": "repo aipath512/b2b-ai-library-org, PR #15 (f2a835ef) head complet + PR #16 (cdc7daf9) marcaj data-injected-by pe JSON-LD static, ca workerul existent să nu injecteze duplicat",
+  "nelamurit": "Workerul autumn-firefly-728d rămâne neschimbat în Cloudflare; continuă să injecteze FAQPage și secțiunea FAQ vizibilă."
+}
