@@ -143,7 +143,12 @@ export function audit(page, ctx = {}) {
   const unresolved = [...refs].filter((r) => !defined.has(r) && originOf(r) === org);
   add('ld:ids', 'schema', 'Toate referințele @id se rezolvă', unresolved.length === 0, unresolved.slice(0, 3).join(', '));
   const urls = []; collectUrls(P.blocks.map((b) => b.data), urls);
-  const slashy = !!can && can.endsWith('/');
+  // Stilul URL-urilor interne se deduce din linkurile <a href> ale paginii: dacă majoritatea nu au slash final, regula nu se aplică.
+  let withSl = 0, noSl = 0;
+  for (const mm of String(P.html).matchAll(/<a\b[^>]*\shref\s*=\s*["']([^"'#?]+)["']/gi)) {
+    try { const u = new URL(mm[1], can || P.url); if (u.origin !== originOf(can || P.url) || u.pathname === '/' || !isSlashy(u.pathname)) continue; u.pathname.endsWith('/') ? withSl++ : noSl++; } catch {}
+  }
+  const slashy = !!can && can.endsWith('/') && !(noSl > withSl);
   const bad = slashy ? urls.map((u) => u.split('#')[0]).filter((u) => originOf(u) === org && new URL(u).pathname !== '/' && !u.endsWith('/') && isSlashy(new URL(u).pathname)) : [];
   add('ld:slash', 'schema', 'URL-urile interne din schema folosesc slash final', bad.length === 0, [...new Set(bad)].slice(0, 3).join(', '));
   add('ld:lang', 'schema', 'inLanguage pe WebPage', wps.length > 0 && wps.every((n) => !!n.inLanguage));
