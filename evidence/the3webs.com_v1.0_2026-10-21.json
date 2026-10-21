@@ -1,0 +1,11 @@
+{
+  "site": "the3webs.com",
+  "increment": 9,
+  "versiune": "v1.0",
+  "data": "2026-10-21",
+  "masurat_cu": "https://aiventure-autopilot.pages.dev/api/audit (scorer.js, 38 verificări: 28 meta + 10 schema)",
+  "BEFORE": {"scor": 39.5, "esecuri": ["robots","og:locale","og:site_name","og:image:alt","og:dims","og:url=canonical","tw:card","twitter:title","twitter:description","twitter:image","icon_ico","icon_svg","icon_32","icon_16","icon_apple","icon_manifest","theme-color","ld:valid","ld:graph","ld:wp","ld:siteorg","ld:crumb","ld:lang"], "index_sha256": "7be6fcc5db6d639e4c670c8288adff3d6f40ddfa7deef8a57e55df5ab8b8aea3"},
+  "AFTER": {"scor": 100, "esecuri": [], "index_sha256": "73499f65557b9d2d331ebcd853e8eb5c07496e35d9da7232cdc7432d81c24b85"},
+  "interventie": "repo aipath512/the3webs, PR #1 (squash 42d7184): head complet pe pagina de start, JSON-LD, iconuri, manifest; imaginea OG existentă a cărții păstrată",
+  "nelamurit": "Canonical al paginii de start a trecut de la /en/ la https://the3webs.com/ (pagina este selectorul de limbă); ediția /en/ nu a fost modificată."
+}

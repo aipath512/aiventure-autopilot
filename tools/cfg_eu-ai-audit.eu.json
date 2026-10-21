@@ -1,0 +1,12 @@
+{
+  "domain": "eu-ai-audit.eu", "lang": "en", "locale": "en_US", "date": "2026-10-21",
+  "brand": "AUDIT-AI", "short": "AUDIT-AI", "slogan": "167-Signal Visibility Engine",
+  "description": "AUDIT-AI checks a website against 167 AI-visibility criteria (AEO, GEO, AIO, SEO, A2A) and returns a prioritized action plan.",
+  "og_alt": "AUDIT-AI — 167-signal AI visibility audit with a prioritized action plan",
+  "og_name": "AUDIT-AI", "og_tag": "167-Signal Visibility Engine",
+  "og_sub": "What AI systems see on your website, and what to fix first.",
+  "app": {
+    "description": "Public AI visibility audit: checks a website against 167 criteria across AEO, GEO, AIO, SEO and A2A, and returns a prioritized action plan.",
+    "features": ["167 audit criteria across AEO, GEO, AIO, SEO and A2A", "Prioritized action plan per website", "Public audit with no account required"]
+  }
+}
