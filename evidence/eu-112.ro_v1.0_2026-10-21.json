@@ -1,0 +1,11 @@
+{
+  "site": "eu-112.ro",
+  "increment": 6,
+  "versiune": "v1.0",
+  "data": "2026-10-21",
+  "masurat_cu": "https://aiventure-autopilot.pages.dev/api/audit (scorer.js, 38 verificări: 28 meta + 10 schema)",
+  "BEFORE": {"scor": 76.3, "esecuri": ["og:image:alt","og:dims","og:file (webp)","icon_ico","icon_svg","icon_32","icon_16","icon_apple","icon_manifest"], "index_sha256": "b2796350ba74475b31a7125242ea5f5431594c554c8d3f97f77447b938549383"},
+  "AFTER": {"scor": 100, "esecuri": [], "index_sha256": "83b0079b6368a83053bf8628fd8dc5c482b97cfefc46c6d2958f0c39a10a3c3a"},
+  "interventie": "repo aipath512/eu-112-ro, PR #1 (squash 39f5329c): imagine OG jpg 1200x630 cu alt, set de iconuri, manifest; restul head-ului neschimbat",
+  "nelamurit": "Nimic."
+}
