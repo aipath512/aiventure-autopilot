@@ -1,0 +1,11 @@
+{
+  "site": "eu-ai-act.ro",
+  "increment": 8,
+  "versiune": "v1.0",
+  "data": "2026-10-21",
+  "masurat_cu": "https://aiventure-autopilot.pages.dev/api/audit (scorer.js, 38 verificări: 28 meta + 10 schema)",
+  "BEFORE": {"scor": 84.2, "esecuri": ["og:image:alt","og:dims","og:file (webp)","icon_svg","icon_apple","icon_manifest"], "index_sha256": "8e313fc236a98f7e6e17825f496773ac5468815918542410fe77868dac5eb217"},
+  "AFTER": {"scor": 100, "esecuri": [], "index_sha256": "ad925c03e2898a9d35b0a793a00f31f49f71d6fa76789e2f1382e41033a51049"},
+  "interventie": "repo aipath512/eu-ai-act-ro, PR #1 (squash 0e41e878): imagine OG jpg 1200x630 cu alt, favicon.svg, apple-touch-icon, manifest; restul head-ului neschimbat",
+  "nelamurit": "Nimic."
+}
