@@ -1,0 +1,11 @@
+{
+  "site": "aireadyinjector.com",
+  "increment": 3,
+  "versiune": "v1.0",
+  "data": "2026-10-21",
+  "masurat_cu": "https://aiventure-autopilot.pages.dev/api/audit (scorer.js, 38 verificări: 28 meta + 10 schema)",
+  "BEFORE": {"scor": 55.3, "esecuri": ["og:locale","og:image","og:image:alt","og:dims","og:file","tw:card","twitter:title","twitter:description","twitter:image","icon_ico","icon_svg","icon_32","icon_16","icon_apple","icon_manifest","theme-color","ld:lang"], "index_sha256": "d1a6806a66e72af3e77f078bb90309614c86420321ea9c9d320209bbfa29b2a4"},
+  "AFTER": {"scor": 100, "esecuri": [], "index_sha256": "00159294bb9da3e7c0e3e8282dbaf49eeec0d779b52855b31aebbf3f5131e898"},
+  "interventie": "repo aipath512/aireadyinjector, PR #4 (squash a01a2253edc08e6e1b7c123969d5d2159c0ec2ed): head complet, JSON-LD, iconuri, manifest, imagine OG nouă fără cifra 156",
+  "nelamurit": "BEFORE a fost măsurat cu JSON-LD injectat din KV de Pages Function; AFTER îl are static în pagină (middleware nu mai injectează)."
+}
