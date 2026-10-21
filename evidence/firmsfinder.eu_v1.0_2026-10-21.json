@@ -1,0 +1,11 @@
+{
+  "site": "firmsfinder.eu",
+  "increment": 10,
+  "versiune": "v1.0",
+  "data": "2026-10-21",
+  "masurat_cu": "https://aiventure-autopilot.pages.dev/api/audit (scorer.js, 38 verificări: 28 meta + 10 schema)",
+  "BEFORE": {"scor": 100, "esecuri": [], "nota": "etalonul rețelei; nu a fost modificat în această sesiune"},
+  "AFTER": {"scor": 100, "esecuri": [], "index_sha256": "72bb78e960f95c08f3c7249c14ab1cbe32f4d104ef5f54a6505b233cb58a544c"},
+  "interventie": "niciuna (confirmare)",
+  "nelamurit": "Nu există BEFORE/AFTER distincte: site-ul era deja la 100. Pachetul fixează starea live la data măsurării."
+}
