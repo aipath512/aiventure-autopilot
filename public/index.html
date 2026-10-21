@@ -26,6 +26,7 @@ button.primary{background:var(--acc);color:var(--accink);border-color:var(--acc)
 button:disabled{opacity:.5;cursor:not-allowed}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
 .scores{display:flex;gap:14px;flex-wrap:wrap}.score{flex:1 1 200px;border:1px solid var(--line);border-radius:10px;padding:12px}
 .score b{font-size:2rem;display:block;line-height:1.1}.bar{height:8px;background:var(--line);border-radius:6px;overflow:hidden;margin-top:8px}.bar i{display:block;height:100%;background:var(--acc)}
+.chip{background:transparent;color:inherit;font:inherit;font-size:.8rem;cursor:pointer}.chip.sel{background:var(--code)}.cd{margin-top:10px;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:.9rem}.cd ul{list-style:none;margin:6px 0;padding:0}.cd li{margin:5px 0}.cd .sub{display:block;font-size:.82rem}
 .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.chip{font-size:.8rem;padding:3px 9px;border-radius:99px;border:1px solid var(--line)}
 .chip.ok{color:var(--ok);border-color:var(--ok)}.chip.bad{color:var(--bad);border-color:var(--bad)}.chip.skip{color:var(--warn);border-color:var(--warn)}
 pre{background:var(--code);border:1px solid var(--line);border-radius:8px;padding:10px;overflow:auto;font:12.5px/1.45 ui-monospace,Consolas,monospace;max-height:340px;white-space:pre-wrap;word-break:break-word}
@@ -78,6 +79,7 @@ ol.log{font-size:.88rem;color:var(--mut);padding-left:20px;max-height:220px;over
       <div class="score"><span class="sub">Scor verificat (pagina publicată)</span><b id="sLive">–</b><div class="bar"><i id="bLive" style="width:0"></i></div></div>
     </div>
     <div class="chips" id="chips"></div>
+    <div id="chipDetail" class="cd" hidden></div>
   </div>
 
   <div class="card" id="iter" hidden>

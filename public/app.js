@@ -82,7 +82,14 @@ function render() {
   const a = c.audit; $('pageTitle').textContent = c.url;
   $('sEst').textContent = a.score.toFixed(1); $('bEst').style.width = a.score + '%';
   $('sLive').textContent = c.liveScore == null ? '–' : c.liveScore.toFixed(1); $('bLive').style.width = (c.liveScore || 0) + '%';
-  $('chips').innerHTML = GROUPS.map((g) => { const f = a.checks.filter((x) => x.group === g.id); const bad = f.filter((x) => x.pass === false).length; const cls = bad ? 'bad' : f.every((x) => x.pass === null) ? 'skip' : 'ok'; return `<span class="chip ${cls}">${esc(g.label)}${bad ? ' · ' + bad + ' de rezolvat' : ' ✓'}</span>`; }).join('');
+  $('chips').innerHTML = GROUPS.map((g) => { const f = a.checks.filter((x) => x.group === g.id); const bad = f.filter((x) => x.pass === false).length; const cls = bad ? 'bad' : f.every((x) => x.pass === null) ? 'skip' : 'ok'; return `<button type="button" class="chip ${cls}${c.open === g.id ? ' sel' : ''}" data-g="${g.id}" aria-expanded="${c.open === g.id}">${esc(g.label)}${bad ? ' · ' + bad + ' de rezolvat' : ' ✓'} ${c.open === g.id ? '▴' : '▾'}</button>`; }).join('');
+  $('chips').querySelectorAll('.chip').forEach((b) => (b.onclick = () => { c.open = c.open === b.dataset.g ? null : b.dataset.g; render(); }));
+  const cd = $('chipDetail'); cd.hidden = !c.open;
+  if (c.open) {
+    const g = GROUPS.find((x) => x.id === c.open); const f = a.checks.filter((x) => x.group === c.open); const bad = f.filter((x) => x.pass === false).length;
+    cd.innerHTML = `<b>${esc(g.label)}</b><ul>` + f.map((x) => `<li>${x.pass === false ? '<span class="err">✗</span>' : x.pass === null ? '<span class="sub">–</span>' : '<span class="ok">✓</span>'} ${esc(x.label)}${x.detail ? `<span class="sub">${esc(x.detail)}</span>` : ''}</li>`).join('') + '</ul>' + (bad ? `<button type="button" class="primary" id="fixGroup">Corectează acum acest grup (${bad})</button>` : '<p class="ok">Toate verificările din acest grup trec.</p>');
+    const fb = $('fixGroup'); if (fb) fb.onclick = () => { c.rejected.delete(c.open); c.done.delete(c.open); c.group = c.open; c.iter++; c.prop = propose(c.group, c.page, c.audit, c.inputs); c.open = null; render(); $('iter').scrollIntoView({ behavior: 'smooth', block: 'start' }); };
+  }
   const p = c.prop; $('iter').hidden = !p; $('done').hidden = !!p;
   if (p) {
     const gl = GROUPS.find((g) => g.id === p.group).label;
