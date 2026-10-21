@@ -1,0 +1,11 @@
+{
+  "site": "ecbtax.com",
+  "increment": 11,
+  "versiune": "v1.0",
+  "data": "2026-10-21",
+  "masurat_cu": "https://aiventure-autopilot.pages.dev/api/audit (scorer.js, 38 verificări: 28 meta + 10 schema)",
+  "BEFORE": {"scor": 84.2, "esecuri": ["icon_ico","icon_svg","icon_32","icon_16","icon_apple","icon_manifest"], "index_sha256": "922aa6699ac35b31095ceb47c06959dcf15a8d2fd43354f85c1e30332ca4cd93"},
+  "AFTER": {"scor": 100, "esecuri": [], "index_sha256": "d8af8548ecc401558358e30f6fefd634f0b070deeae44a4087fb853945f4994c"},
+  "interventie": "repo aipath512/ecbtax, PR #5 (squash): doar iconuri + manifest, cu sigla ECBTAX (litera e aurie pe #07151B); 6 linkuri în head. Titlu, descriere, schema, autor și conținut neatinse. Fără brand AiVenture.",
+  "nelamurit": "assets/og-image.jpg răspunde 200 live dar nu este în depozit (servit din altă sursă). Imaginile PNG ale iconurilor sunt în depozit, nu în acest pachet."
+}
