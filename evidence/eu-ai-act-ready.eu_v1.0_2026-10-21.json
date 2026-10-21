@@ -1,0 +1,11 @@
+{
+  "site": "eu-ai-act-ready.eu",
+  "increment": 7,
+  "versiune": "v1.0",
+  "data": "2026-10-21",
+  "masurat_cu": "https://aiventure-autopilot.pages.dev/api/audit (scorer.js, 38 verificări: 28 meta + 10 schema)",
+  "BEFORE": {"scor": 68.4, "esecuri": ["meta robots","og:image:alt","og:dims","og:file (webp)","twitter:image","iconuri (6)","ld:dup"], "index_sha256": "0ac12041c1a1d43e18b9d0d880b3066d8e7b56d46ca90b118907287523568df7"},
+  "AFTER": {"scor": 100, "esecuri": [], "index_sha256": "1167a0fd5d64407c49f9391acb0ffc9548c6f216b45c3279319fddebafc67e71"},
+  "interventie": "repo aipath512/eu-ai-act-v11 (sursa reală a domeniului), PR #1 (squash c76dd464): meta robots, OG jpg 1200x630 cu alt, twitter:image, iconuri, manifest; functions/_middleware.js nu mai injectează graful Organization/WebSite pe homepage (care îl are static)",
+  "nelamurit": "Un PR anterior a ajuns din greșeală în aipath512/eu-ai-act-ready-clean (repo abandonat, nu servește domeniul); este inofensiv și poate rămâne. Celelalte pagini continuă să primească graful din middleware."
+}
