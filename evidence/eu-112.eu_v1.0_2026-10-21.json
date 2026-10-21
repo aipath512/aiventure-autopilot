@@ -1,0 +1,11 @@
+{
+  "site": "eu-112.eu",
+  "increment": 5,
+  "versiune": "v1.0",
+  "data": "2026-10-21",
+  "masurat_cu": "https://aiventure-autopilot.pages.dev/api/audit (scorer.js, 38 verificări: 28 meta + 10 schema)",
+  "BEFORE": {"scor": 73.7, "esecuri": ["title 86 caractere","desc 196 caractere","og:image:alt","og:dims","og:file (webp)","icon_svg","icon_apple","icon_manifest","ld:wp","ld:lang"], "index_sha256": "3ecab388db430370fe463a316674f9b4b14eba4417822746e551083e87431a7d"},
+  "AFTER": {"scor": 100, "esecuri": [], "index_sha256": "c8ba3b5a063e18e29a4e4cbc5fe919c9f5b40f193127a3f5b4f2394f21e50e1c"},
+  "interventie": "repo aipath512/eu-112, PR #1 (squash 72b32d03): homepage autoreferențial (canonical, og:url, JSON-LD pe eu-112.eu în loc de eu-ai-act.ro), titlu 59 și descriere 161 caractere, OG jpg 1200x630, set iconuri, robots.txt și sitemap.xml către eu-112.eu",
+  "nelamurit": "Celelalte pagini din repo au încă canonical către eu-ai-act.ro și nu au fost modificate. Conținutul paginii rămâne cel al funnel-ului EU AI Act Ready în română."
+}

@@ -22,6 +22,10 @@ graph = [org,
  {'@type': 'WebPage', '@id': U + '#webpage', 'url': U, 'name': title, 'description': desc, 'inLanguage': lang,
   'isPartOf': {'@id': U + '#website'}, 'dateModified': cfg['date'], 'copyrightYear': int(cfg['date'][:4]),
   'publisher': P, 'author': P, 'creator': P, 'copyrightHolder': P}]
+if cfg.get('extra_graph'):
+    graph += json.load(open(cfg['extra_graph'], encoding='utf8'))
+if cfg.get('main_id'):
+    graph[3]['mainEntity'] = {'@id': U + cfg['main_id']}; graph[3]['about'] = [{'@id': U + cfg['main_id']}]
 if cfg.get('app'):
     a = cfg['app']; graph[3]['about'] = [{'@id': U + '#app'}]; graph[3]['mainEntity'] = {'@id': U + '#app'}
     graph.append({'@type': 'WebApplication', '@id': U + '#app', 'name': cfg['brand'], 'url': U, 'applicationCategory': 'BusinessApplication',
