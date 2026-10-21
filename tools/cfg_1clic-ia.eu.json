@@ -1,0 +1,12 @@
+{
+  "domain": "1clic-ia.eu", "lang": "ro-RO", "locale": "ro_RO", "date": "2026-10-21",
+  "brand": "FirmsFinder AI", "short": "FirmsFinder", "slogan": "Economic Intelligence",
+  "description": "FirmsFinder AI — Descoperiți firmele pe care nu le știți: viitorii clienți. 1,78 milioane de firme active din România, cu bilanțurile 2023–2025.",
+  "og_alt": "FirmsFinder AI — descoperiți firme din România: clienți, furnizori, competitori",
+  "og_name": "FirmsFinder AI", "og_tag": "Date · Relații · Oportunități",
+  "og_sub": "Descoperiți firmele pe care nu le știți: viitorii clienți.",
+  "app": {
+    "description": "Căutare în firmele active din România după activitate, județ, număr de salariați și cifră de afaceri, pe baza datelor oficiale ONRC și Ministerul Finanțelor (bilanțuri 2023–2025).",
+    "features": ["Căutare după activitate (cod CAEN), județ și localitate", "Filtre după salariați, cifră de afaceri și evoluție 2023–2025", "Descărcarea listei în format CSV"]
+  }
+}

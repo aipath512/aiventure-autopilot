@@ -1,0 +1,16 @@
+{
+  "site": "1clic-ia.eu",
+  "repo": "aipath512/firmsfinder-ai (Worker + public/)",
+  "increment": 2,
+  "before": { "score": 34.2, "index_html_sha256": "59001eaa36300eb2a3d82694a383bc097d3fb74593fd86df05c4be84892bbbc4" },
+  "after": {
+    "commit": "PR #1 firmsfinder-ai, merged 2026-10-21",
+    "score_live": 94.7,
+    "failing": ["ld:lang", "ld:dup"],
+    "cause": "worker Cloudflare lingering-mode-eefb injecteaza un al doilea JSON-LD (WebPage cu acelasi @id, fara inLanguage) pentru crawlere",
+    "index_html_sha256": "fdc37613743baad6ae9763af9dd40ff003df29687b88b1da0288fe747e645201",
+    "og_image_sha256": "9a6bbb0b42c83392c658e3cc0822d669be470dee94585528fa0f3b11030f37e6"
+  },
+  "pending": "inlocuirea codului workerului lingering-mode-eefb cu v1.1 (nu mai injecteaza); asteptat 100 dupa aceea",
+  "opentimestamps": "neinregistrat (calendarele OTS nu sunt accesibile din mediul de lucru)"
+}

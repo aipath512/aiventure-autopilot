@@ -1,0 +1,76 @@
+{
+  "@type": "Organization",
+  "@id": "https://aiventure.ro/#organization",
+  "name": "AiVenture S.R.L.",
+  "legalName": "AiVenture S.R.L.",
+  "alternateName": "AiVenture",
+  "url": "https://aiventure.ro/",
+  "logo": "https://aiventure.ro/icon.svg",
+  "image": "https://aiventure.ro/assets/brand/logo_512w.png",
+  "email": "contact@5thelement.ai",
+  "telephone": "+40 737 123 540",
+  "description": "AiVenture oferă servicii pentru Web-Om, Web-AI și Web-A2A și produse pentru analiză, implementare și infrastructură AI/A2A.",
+  "foundingDate": "2025-03-07",
+  "taxID": "51415878",
+  "vatID": "RO51415878",
+  "identifier": [
+    {
+      "@type": "PropertyValue",
+      "propertyID": "CUI",
+      "value": "51415878"
+    },
+    {
+      "@type": "PropertyValue",
+      "propertyID": "Nr. Registrul Comerțului",
+      "value": "J2025016406000"
+    },
+    {
+      "@type": "PropertyValue",
+      "propertyID": "EUID",
+      "value": "ROONRC.J2025016406000"
+    }
+  ],
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Drumul Pădurea Pustnicul nr. 141C, Corp A, Etaj 2, Ap. 5",
+    "addressLocality": "București",
+    "addressRegion": "Sector 1",
+    "postalCode": "014044",
+    "addressCountry": "RO"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "informații comerciale",
+    "email": "contact@5thelement.ai",
+    "telephone": "+40 737 123 540",
+    "availableLanguage": [
+      "ro"
+    ]
+  },
+  "founder": {
+    "@type": "Person",
+    "name": "Dan Ionescu",
+    "sameAs": [
+      "https://orcid.org/0009-0002-5498-1046",
+      "https://ro.linkedin.com/in/dan-ionesco-a856082a0"
+    ]
+  },
+  "employee": {
+    "@type": "Person",
+    "name": "Gratiela Ionescu",
+    "jobTitle": "Administrator"
+  },
+  "brand": {
+    "@id": "{{BRAND_ID}}"
+  },
+  "sameAs": [
+    "https://www.reddit.com/user/AiVentureRO/",
+    "https://www.linkedin.com/company/107338970",
+    "https://www.linkedin.com/showcase/5thelement-ai/",
+    "https://www.crunchbase.com/organization/aiventure-s-r-l",
+    "https://www.facebook.com/people/Aiventure/61573220584246/",
+    "https://x.com/aipath512",
+    "https://www.youtube.com/@AIVenture-q8u",
+    "https://medium.com/@aipath512"
+  ]
+}
